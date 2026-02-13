@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VyaparSetu | Welcome</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+/* Global Reset */
+* { margin:0; padding:0; box-sizing:border-box; }
+body, html {
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    background: #fff; /* Light theme background */
+    color: #000;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    height: 70px;
+    background-color: #FFFBEC; /* very light yellow */
+    border-bottom: 1px solid #000; /* thin black border */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.nav-brand {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #FFB703;
+}
+
+.nav-brand span { color: #8ECAE6; }
+
+/* Hero Section */
+.hero-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1; /* fill remaining space */
+    padding-top: 100px;
+    text-align: center;
+}
+
+.welcome-section h1 {
+    font-size: 2.5rem;
+    color: #FFB703;
+    margin-bottom: 12px;
+}
+
+.welcome-section .subtitle {
+    font-size: 1.2rem;
+    color: #000;
+    max-width: 600px;
+    margin: 0 auto 40px;
+}
+
+/* Form wrapper & cards */
+.form-wrapper {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.attractive-card {
+    background: #FFF8E1; /* soft yellow card */
+    border: 1px solid #000; /* thin black border */
+    border-radius: 16px;
+    width: 280px;
+    padding: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.attractive-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.card-header {
+    margin-bottom: 20px;
+}
+
+.role-icon {
+    font-size: 2.2rem;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.attractive-card h2 {
+    font-size: 1.5rem;
+    color: #FFB703;
+    margin-bottom: 8px;
+}
+
+.attractive-card .subtitle {
+    font-size: 0.95rem;
+    color: #000;
+}
+
+/* Buttons */
+.btn-primary {
+    display: inline-block;
+    width: 100%;
+    padding: 14px 0;
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-decoration: none;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    background-color: #FFB703;
+    transition: all 0.4s ease;
+}
+
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.3);
+    transition: 0.5s;
+}
+
+.btn-primary:hover::after {
+    left: 0;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(255,183,3,0.3);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #000;
+    background: #FFFBEC;
+    border-top: 1px solid #000;
+    padding: 12px 5%;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer a {
+    color: #FFB703;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover { color: #8ECAE6; }
+
+/* Responsive */
+@media (max-width: 650px) {
+    .form-wrapper {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <a href="/" class="nav-brand">Vyapar<span>Setu</span></a>
+</nav>
+
+<main class="hero-container">
+    <div class="welcome-section">
+        <h1>Welcome to VyaparSetu</h1>
+        <p class="subtitle">Connecting visionary investors with India's rising vendor community.</p>
+    </div>
+
+    <div class="form-wrapper">
+        <div class="attractive-card selection-card">
+            <div class="card-header">
+                <span class="role-icon">📈</span>
+                <h2>Investors</h2>
+                <p class="subtitle">Fuel growth and build your portfolio with verified vendor opportunities.</p>
+            </div>
+            <div class="button-stack">
+                <a href="/investor/" class="btn-primary">Investor Login</a>
+            </div>
+        </div>
+
+        <div class="attractive-card selection-card">
+            <div class="card-header">
+                <span class="role-icon">🏪</span>
+                <h2>Vendors</h2>
+                <p class="subtitle">Scale your business by connecting with the right investment partners.</p>
+            </div>
+            <div class="button-stack">
+                <a href="/vendor/" class="btn-primary">Vendor Login</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer-content">
+      <p><strong>Know Your Rights:</strong> All data is protected under the 2026 Privacy Framework. <a href="#">Learn more &rarr;</a></p>
+    </div>
+</footer>
+
+</body>
+</html>
