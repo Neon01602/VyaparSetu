@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-^v*37$x$ckq3-0_6lg5(31f1dsf8)5_+@ylt9ez_(a@u(eez=4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["9de4-2401-4900-a503-df11-2d84-7754-34ef-63ad.ngrok-free.app", "127.0.0.1"]
+ALLOWED_HOSTS = ["9de4-2401-4900-a503-df11-2d84-7754-34ef-63ad.ngrok-free.app", "127.0.0.1", "vyaparsetu.onrender.com"]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://9de4-2401-4900-a503-df11-2d84-7754-34ef-63ad.ngrok-free.app",
