@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Invest in Vendor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* ===== BODY & FONTS ===== */
+body {
+    font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+    background: #f4f6f8;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+/* ===== CARD ===== */
+.card {
+    background: #ffffff;
+    border-radius: 20px;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.card h2 {
+    color: #023047;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+
+/* ===== VENDOR INFO ===== */
+.vendor-info {
+    background: #f0f4f8;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.vendor-info p {
+    margin: 8px 0;
+    font-size: 16px;
+    color: #023047;
+}
+
+/* ===== FORM ===== */
+.invest-form label {
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: 600;
+    color: #023047;
+}
+
+.invest-form input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.invest-form input[type="number"]:focus {
+    border-color: #FFB703;
+}
+
+.invest-form button {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: #FFB703;
+    color: #023047;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.invest-form button:hover {
+    background: #e6a500;
+    transform: translateY(-2px);
+}
+
+/* ===== CONDITIONS ===== */
+.conditions {
+    margin-top: 25px;
+    padding: 20px;
+    background: #f0f4f8;
+    border-radius: 15px;
+    font-size: 14px;
+    color: #023047;
+}
+
+.conditions h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 18px;
+    color: #023047;
+}
+
+.conditions ul {
+    padding-left: 20px;
+}
+
+.conditions ul li {
+    margin-bottom: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Invest in {{ vendor.username }}</h2>
+
+    <div class="vendor-info">
+        <p><b>Name:</b> {{ vendor.username }}</p>
+        <p><b>Email:</b> {{ vendor.email }}</p>
+        <p><b>Phone:</b> {{ vendor.phone }}</p>
+        <p><b>Aadhaar:</b> {{ vendor.aadhaar_pan }}</p>
+    </div>
+
+    <form method="POST" class="invest-form">
+        {% csrf_token %}
+        <label for="amount">Investment Amount (₹)</label>
+        <input type="number" name="amount" id="amount" min="5000" value="5000" required>
+
+        <button type="submit">Invest Now</button>
+    </form>
+
+    <div class="conditions">
+        <h3>Investment Terms</h3>
+        <ul>
+            <li>Minimum investment: ₹5000</li>
+            <li>Guaranteed minimum return: 6%</li>
+            <li>Investment valid for 1 year</li>
+            <li>All transactions are securely recorded</li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

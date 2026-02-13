@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VyaparSetu</title>
+
+<style>
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: sans-serif;
+  background-color: #023047;
+}
+
+/* --- HORIZONTAL NAVBAR --- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+  height: 70px;
+  background-color: rgba(2, 48, 71, 0.95);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  border-bottom: 1px solid #219EBC;
+}
+
+.logo {
+  color: #FB8500;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.logo span {
+  color: #8ECAE6;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #8ECAE6;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #FFB703;
+}
+
+/* --- CENTER BUTTONS SECTION --- */
+.hero-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  padding-top: 70px; /* avoid navbar overlap */
+}
+
+.center-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+}
+
+/* Button Styles */
+.btn-inverter,
+.btn-vendor {
+  display: inline-block;
+  min-width: 280px;
+  padding: 20px 40px;
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Inverter Theme */
+.btn-inverter {
+  background-color: #219EBC;
+  color: #023047;
+  box-shadow: 0 4px 15px rgba(33, 158, 188, 0.3);
+}
+
+.btn-inverter:hover {
+  background-color: #8ECAE6;
+  transform: translateY(-3px);
+}
+
+/* Vendor Theme */
+.btn-vendor {
+  background-color: transparent;
+  color: #FFB703;
+  border: 3px solid #FFB703;
+}
+
+.btn-vendor:hover {
+  background-color: #FFB703;
+  color: #023047;
+  transform: translateY(-3px);
+}
+
+/* ===== Responsive Adjustments (NO DESIGN CHANGE) ===== */
+
+@media (max-width: 600px) {
+
+  .navbar {
+    padding: 0 3%;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  .nav-links {
+    gap: 12px;
+    font-size: 0.9rem;
+  }
+
+  .btn-inverter,
+  .btn-vendor {
+    min-width: 90%;
+    font-size: 1rem;
+    padding: 16px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="logo">Brand<span>Name</span></div>
+
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero-container">
+  <div class="center-content">
+
+    <a href="/investor/" class="btn-inverter">Invester</a>
+    <a href="/vendor/" class="btn-vendor">Vendor</a>
+
+  </div>
+</div>
+
+</body>
+</html>

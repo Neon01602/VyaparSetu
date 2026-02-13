@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Vendor Portal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+/* ===== BODY ===== */
+body{
+    font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+    background: #f4f6f8;
+    color: #333;
+    margin:0;
+    padding:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+/* ===== CARD ===== */
+.card{
+    width:100%;
+    max-width:480px;
+    background:#fff;
+    padding:30px 25px;
+    border-radius:20px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover{
+    transform: translateY(-5px);
+    box-shadow:0 18px 40px rgba(0,0,0,0.2);
+}
+
+/* ===== TITLES ===== */
+h2{
+    text-align:center;
+    color:#023047;
+    margin-bottom:25px;
+    font-size:26px;
+}
+
+h3{
+    color:#FFB703;
+    margin-top:15px;
+    margin-bottom:10px;
+}
+
+/* ===== MESSAGES ===== */
+.message{
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:12px;
+    font-size:14px;
+    text-align:center;
+}
+
+.message.error{background:#c1121f; color:white;}
+.message.success{background:#2a9d8f; color:white;}
+
+/* ===== FORM ELEMENTS ===== */
+label{
+    font-size:14px;
+    font-weight:600;
+    display:block;
+    margin:10px 0 5px;
+    color:#023047;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="file"]{
+    width:100%;
+    padding:12px 15px;
+    border-radius:12px;
+    border:1px solid #ccc;
+    margin-bottom:15px;
+    font-size:14px;
+    outline:none;
+    transition:border 0.2s ease;
+}
+
+input:focus{
+    border-color:#FFB703;
+    background:#fefefe;
+}
+
+/* ===== BUTTONS ===== */
+button{
+    width:100%;
+    padding:14px;
+    margin-top:10px;
+    background:#FFB703;
+    color:#023047;
+    font-weight:bold;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    cursor:pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+button:hover{
+    background:#e6a500;
+    transform: translateY(-2px);
+}
+
+/* ===== LINKS ===== */
+.link{
+    text-align:center;
+    margin-top:15px;
+    font-size:14px;
+    color:#8ecae6;
+    cursor:pointer;
+    transition: color 0.2s ease;
+}
+
+.link:hover{
+    color:#023047;
+}
+
+/* ===== DOCUMENT BOXES ===== */
+.doc-box{
+    background:#f0f4f8;
+    padding:15px;
+    border-radius:12px;
+    font-size:14px;
+    margin-bottom:12px;
+    border:1px solid #ccc;
+    transition: box-shadow 0.2s ease;
+}
+
+.doc-box:hover{
+    box-shadow:0 6px 20px rgba(0,0,0,0.1);
+}
+
+/* ===== HIDDEN SECTIONS ===== */
+.hidden{
+    display:none;
+}
+
+/* ===== HORIZONTAL RULE ===== */
+hr{
+    border:none;
+    border-top:1px solid #ccc;
+    margin:20px 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h2 id="title">Vendor Login</h2>
+
+{% if messages %}
+<div>
+{% for message in messages %}
+<div class="message {% if message.tags == 'error' %}error{% else %}success{% endif %}">
+    {{ message }}
+</div>
+{% endfor %}
+</div>
+{% endif %}
+
+<form method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+
+<!-- ===== LOGIN ===== -->
+<div id="loginSection">
+<label>Aadhaar / PAN</label>
+<input type="text" name="login_aadhaar" required>
+
+<label>Password</label>
+<input type="password" name="login_password" required>
+
+<button type="submit" name="vendor_login">
+Login
+</button>
+
+<div class="link" onclick="toggleForm(event)">
+Create new account →
+</div>
+</div>
+
+<!-- ===== SIGNUP ===== -->
+<div id="signupSection" class="hidden">
+<label>Name</label>
+<input type="text" name="signup_name">
+
+<label>Phone</label>
+<input type="text" name="signup_phone">
+
+<label>Email</label>
+<input type="email" name="signup_email">
+
+<label>Aadhaar / PAN</label>
+<input type="text" name="signup_aadhaar">
+
+<label>Password</label>
+<input type="password" name="signup_password">
+
+<hr>
+
+<h3>Upload Documents</h3>
+<div id="docsContainer">
+<div class="doc-box doc-item">
+<label>Document Title</label>
+<input type="text" name="doc_title[]">
+
+<label>Select File</label>
+<input type="file" name="document[]">
+
+<button type="button" onclick="removeDoc(this)"
+style="background:#c1121f;color:white;margin-top:6px;">
+Remove
+</button>
+</div>
+</div>
+
+<button type="button" onclick="addDoc()"
+style="margin-top:10px;background:#2a9d8f;color:white;">
++ Add Document
+</button>
+
+<button type="submit" name="vendor_signup">
+Create Account
+</button>
+
+<div class="link" onclick="toggleForm(event)">
+← Back to login
+</div>
+</div>
+
+</form>
+</div>
+
+<script>
+function toggleForm(e){
+    e.preventDefault();
+    const login=document.getElementById("loginSection");
+    const signup=document.getElementById("signupSection");
+    const title=document.getElementById("title");
+
+    login.classList.toggle("hidden");
+    signup.classList.toggle("hidden");
+
+    title.innerText = signup.classList.contains("hidden")
+        ? "Vendor Login"
+        : "Vendor Signup";
+
+    toggleRequired(login, !login.classList.contains("hidden"));
+    toggleRequired(signup, !signup.classList.contains("hidden"));
+}
+
+function toggleRequired(section, enable){
+    section.querySelectorAll("input").forEach(input=>{
+        if(enable) input.setAttribute("required","required");
+        else input.removeAttribute("required");
+    });
+}
+
+// ===== ADD / REMOVE DOCUMENT =====
+function addDoc(){
+    const container = document.getElementById("docsContainer");
+    const doc = document.createElement("div");
+    doc.className = "doc-box doc-item";
+
+    doc.innerHTML = `
+    <label>Document Title</label>
+    <input type="text" name="doc_title[]">
+
+    <label>Select File</label>
+    <input type="file" name="document[]">
+
+    <button type="button" onclick="removeDoc(this)"
+    style="background:#c1121f;color:white;margin-top:6px;">
+    Remove
+    </button>
+    `;
+    container.appendChild(doc);
+}
+
+function removeDoc(btn){
+    btn.parentElement.remove();
+}
+</script>
+
+</body>
+</html>

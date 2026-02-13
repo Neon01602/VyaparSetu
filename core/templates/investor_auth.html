@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Investor Portal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* ===== BODY ===== */
+body{
+    font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+    background: #f4f6f8;
+    color: #333;
+    margin:0;
+    padding:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+/* ===== CARD ===== */
+.card{
+    width:100%;
+    max-width:420px;
+    background:#fff;
+    padding:30px 25px;
+    border-radius:20px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover{
+    transform: translateY(-5px);
+    box-shadow:0 18px 40px rgba(0,0,0,0.2);
+}
+
+/* ===== TITLES ===== */
+h2{
+    text-align:center;
+    color:#023047;
+    margin-bottom:25px;
+    font-size:26px;
+}
+
+/* ===== MESSAGES ===== */
+.message{
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:12px;
+    font-size:14px;
+    text-align:center;
+}
+
+.message.error{background:#c1121f; color:white;}
+.message.success{background:#2a9d8f; color:white;}
+
+/* ===== FORM ELEMENTS ===== */
+label{
+    font-size:14px;
+    font-weight:600;
+    display:block;
+    margin:10px 0 5px;
+    color:#023047;
+}
+
+input{
+    width:100%;
+    padding:12px 15px;
+    border-radius:12px;
+    border:1px solid #ccc;
+    margin-bottom:15px;
+    font-size:14px;
+    outline:none;
+    transition:border 0.2s ease;
+}
+
+input:focus{
+    border-color:#FFB703;
+}
+
+/* ===== BUTTONS ===== */
+button{
+    width:100%;
+    padding:14px;
+    margin-top:10px;
+    background:#FFB703;
+    color:#023047;
+    font-weight:bold;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    cursor:pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+button:hover{
+    background:#e6a500;
+    transform: translateY(-2px);
+}
+
+/* ===== LINKS ===== */
+.link{
+    text-align:center;
+    margin-top:15px;
+    font-size:14px;
+    color:#8ecae6;
+    cursor:pointer;
+    transition: color 0.2s ease;
+}
+
+.link:hover{
+    color:#023047;
+}
+
+/* ===== HIDDEN SECTIONS ===== */
+.hidden{
+    display:none;
+}
+
+/* ===== SMOOTH TOGGLE ===== */
+#signupSection, #loginSection{
+    transition: all 0.3s ease;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h2 id="title">Investor Login</h2>
+
+{% if messages %}
+<div>
+{% for message in messages %}
+<div class="message {% if message.tags == 'error' %}error{% else %}success{% endif %}">
+    {{ message }}
+</div>
+{% endfor %}
+</div>
+{% endif %}
+
+<form method="POST">
+{% csrf_token %}
+
+<!-- ===== LOGIN ===== -->
+<div id="loginSection">
+
+<label>Aadhaar / PAN</label>
+<input type="text" name="login_aadhaar" required>
+
+<label>Password</label>
+<input type="password" name="login_password" required>
+
+<button type="submit" name="investor_login">
+Login
+</button>
+
+<div class="link" onclick="toggleForm(event)">
+Create new account →
+</div>
+
+</div>
+
+<!-- ===== SIGNUP ===== -->
+<div id="signupSection" class="hidden">
+
+<label>Name</label>
+<input type="text" name="signup_name">
+
+<label>Phone</label>
+<input type="text" name="signup_phone">
+
+<label>Email</label>
+<input type="email" name="signup_email">
+
+<label>Aadhaar / PAN</label>
+<input type="text" name="signup_aadhaar">
+
+<label>Password</label>
+<input type="password" name="signup_password">
+
+<button type="submit" name="investor_signup">
+Create Account
+</button>
+
+<div class="link" onclick="toggleForm(event)">
+← Back to login
+</div>
+
+</div>
+
+</form>
+</div>
+
+<script>
+function toggleForm(e){
+    e.preventDefault();
+    const login=document.getElementById("loginSection");
+    const signup=document.getElementById("signupSection");
+    const title=document.getElementById("title");
+
+    login.classList.toggle("hidden");
+    signup.classList.toggle("hidden");
+
+    title.innerText = signup.classList.contains("hidden")
+        ? "Investor Login"
+        : "Investor Signup";
+
+    toggleRequired(login, !login.classList.contains("hidden"));
+    toggleRequired(signup, !signup.classList.contains("hidden"));
+}
+
+function toggleRequired(section, enable){
+    section.querySelectorAll("input").forEach(input=>{
+        if(enable) input.setAttribute("required","required");
+        else input.removeAttribute("required");
+    });
+}
+</script>
+
+</body>
+</html>
