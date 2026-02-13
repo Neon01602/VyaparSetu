@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Investments</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { 
+            font-family: sans-serif; 
+            background:#023047; 
+            color:white; 
+            margin:0; 
+            padding:20px; 
+        }
+        h1 { margin-bottom:20px; color:#FFB703; }
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .card {
+            background:#034d6d; 
+            padding:10px; 
+            border-radius:10px; 
+            width: calc(33% - 12px); /* 3 cards per row */
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+        .card h2 { margin:0; font-size:14px; color:#FFB703; }
+        .info { display:none; margin-top:8px; font-size:13px; }
+        .card.active .info { display:block; }
+        .card div { margin-bottom:4px; }
+        @media(max-width:900px) { .card { width: calc(50% - 12px); } }
+        @media(max-width:600px) { .card { width: 100%; } }
+    </style>
+</head>
+<body>
+    <h1>My Investments</h1>
+    {% if investments %}
+    <div class="cards-container">
+        {% for inv in investments %}
+        <div class="card" onclick="this.classList.toggle('active')">
+            <h2>{{ inv.vendor.username }}</h2>
+            <div class="info">
+                <div><b>Email:</b> {{ inv.vendor.email }}</div>
+                <div><b>Phone:</b> {{ inv.vendor.phone }}</div>
+                <div><b>Investment Amount:</b> ₹{{ inv.amount }}</div>
+                <div><b>Guaranteed Return:</b> {{ inv.return_percent }}%</div>
+                <div><b>Date:</b> {{ inv.date_invested|date:"d M Y" }}</div>
+                <div><b>Terms:</b> {{ inv.terms }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p>No investments made yet.</p>
+    {% endif %}
+
+    <script>
+        // optional: collapse all when clicking outside
+        document.addEventListener('click', function(e) {
+            document.querySelectorAll('.card').forEach(card => {
+                if (!card.contains(e.target)) card.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

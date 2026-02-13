@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Investor Portal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+font-family:sans-serif;
+background:#023047;
+color:white;
+margin:0;
+padding:20px;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
+.card{
+width:100%;
+max-width:420px;
+background:#034d6d;
+padding:22px;
+border-radius:14px;
+box-shadow:0 6px 20px rgba(0,0,0,.3);
+}
+
+h2{text-align:center;color:#FFB703;}
+
+label{font-size:13px;}
+
+input,button{
+width:100%;
+padding:12px;
+margin:8px 0;
+border-radius:8px;
+border:none;
+font-size:14px;
+}
+
+input{
+background:#022f44;
+color:white;
+}
+
+button{
+background:#FFB703;
+color:#023047;
+font-weight:bold;
+cursor:pointer;
+}
+
+.link{
+text-align:center;
+margin-top:10px;
+cursor:pointer;
+color:#8ecae6;
+}
+
+.hidden{display:none;}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h2 id="title">Investor Login</h2>
+
+{% if messages %}
+<div style="margin-bottom:10px;">
+{% for message in messages %}
+<div style="
+padding:10px;
+border-radius:8px;
+margin-bottom:6px;
+font-size:13px;
+background:{% if message.tags == 'error' %}#c1121f{% else %}#2a9d8f{% endif %};
+">
+{{ message }}
+</div>
+{% endfor %}
+</div>
+{% endif %}
+
+<form method="POST">
+{% csrf_token %}
+
+<!-- ================= LOGIN ================= -->
+<div id="loginSection">
+
+<label>Aadhaar / PAN</label>
+<input type="text" name="login_aadhaar" required>
+
+<label>Password</label>
+<input type="password" name="login_password" required>
+
+<button type="submit" name="investor_login">
+Login
+</button>
+
+<div class="link" onclick="toggleForm(event)">
+Create new account →
+</div>
+
+</div>
+
+<!-- ================= SIGNUP ================= -->
+<div id="signupSection" class="hidden">
+
+<label>Name</label>
+<input type="text" name="signup_name">
+
+<label>Phone</label>
+<input type="text" name="signup_phone">
+
+<label>Email</label>
+<input type="email" name="signup_email">
+
+<label>Aadhaar / PAN</label>
+<input type="text" name="signup_aadhaar">
+
+<label>Password</label>
+<input type="password" name="signup_password">
+
+<button type="submit" name="investor_signup">
+Create Account
+</button>
+
+<div class="link" onclick="toggleForm(event)">
+← Back to login
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+<script>
+
+function toggleForm(e){
+
+e.preventDefault();
+
+const login=document.getElementById("loginSection");
+const signup=document.getElementById("signupSection");
+const title=document.getElementById("title");
+
+login.classList.toggle("hidden");
+signup.classList.toggle("hidden");
+
+title.innerText =
+signup.classList.contains("hidden")
+? "Investor Login"
+: "Investor Signup";
+
+// remove required validation conflicts
+toggleRequired(login, !login.classList.contains("hidden"));
+toggleRequired(signup, !signup.classList.contains("hidden"));
+}
+
+function toggleRequired(section, enable){
+
+section.querySelectorAll("input").forEach(input=>{
+if(enable) input.setAttribute("required","required");
+else input.removeAttribute("required");
+});
+
+}
+
+</script>
+
+</body>
+</html>
